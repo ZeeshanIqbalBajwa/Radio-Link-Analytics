@@ -1,0 +1,663 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_GRAFANADASHBOARDV0.1",
+      "label": "GrafanaDashboardv0.1",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "mysql",
+      "pluginName": "MySQL"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "panel",
+      "id": "barchart",
+      "name": "Bar chart",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "bargauge",
+      "name": "Bar gauge",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "gauge",
+      "name": "Gauge",
+      "version": ""
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "10.1.5"
+    },
+    {
+      "type": "datasource",
+      "id": "mysql",
+      "name": "MySQL",
+      "version": "1.0.0"
+    }
+  ],
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "${DS_GRAFANADASHBOARDV0.1}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-reds"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisGridShow": true,
+            "axisLabel": "",
+            "axisPlacement": "left",
+            "fillOpacity": 42,
+            "gradientMode": "hue",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "See Details",
+              "url": "http://localhost:3000/d/baefb5d0-3068-4c65-95f8-64cc7f5fcd8b/radio-link-inventory-detail?orgId=1&${region:queryparam}﻿﻿﻿&﻿﻿﻿${mnemonic:queryparam}﻿﻿﻿&var-linkDistance=All&var-inLag=All&var-band=${__data.fields.Band}&var-maxCapacity=All&var-minCapacity=All\n\n\n\n"
+            }
+          ],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Total Tx Frequency Count"
+            },
+            "properties": [
+              {
+                "id": "custom.axisColorMode",
+                "value": "text"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#40cdbc",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Band"
+            },
+            "properties": [
+              {
+                "id": "custom.axisLabel",
+                "value": "Band"
+              },
+              {
+                "id": "custom.axisColorMode",
+                "value": "text"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 10,
+      "options": {
+        "barRadius": 0.05,
+        "barWidth": 0.83,
+        "fullHighlight": false,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": false
+        },
+        "orientation": "vertical",
+        "showValue": "always",
+        "stacking": "none",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "xField": "Band",
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 100
+      },
+      "pluginVersion": "10.1.5",
+      "targets": [
+        {
+          "dataset": "cards_inventory",
+          "datasource": {
+            "type": "mysql",
+            "uid": "${DS_GRAFANADASHBOARDV0.1}"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT Band, \r\n       SUM(`Tx Frequency (GHz)`) AS `Total Tx Frequency Count`, \r\n       SUM(`Rx Frequency Count`) AS `Total Rx Frequency Count`\r\nFROM (\r\n    SELECT CAST(TxBand AS UNSIGNED) AS Band, \r\n           COUNT(TxBand) AS `Tx Frequency (GHz)`, \r\n           NULL AS `Rx Frequency Count`\r\n    FROM grafana_dashboards.radio_link_inventory\r\n    WHERE TxBand != 'N/A' \r\n          AND region IN ($region) \r\n          AND mnemonic IN ($mnemonic) \r\n    GROUP BY TxBand\r\n\r\n    UNION ALL\r\n\r\n    SELECT CAST(RxBand AS UNSIGNED) AS Band, \r\n           NULL AS `Tx Frequency (GHz)`, \r\n           COUNT(`RxFrequency(Ghz)`) AS `Rx Frequency Count`\r\n    FROM grafana_dashboards.radio_link_inventory\r\n    WHERE RxBand != 'N/A' \r\n          AND region IN ($region) \r\n          AND mnemonic IN ($mnemonic)\r\n    GROUP BY RxBand\r\n) AS subquery\r\nGROUP BY Band\r\nORDER BY CAST(Band AS UNSIGNED);\r\n",
+          "refId": "B",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Frequency Band Vs Radio Link Count",
+      "transformations": [],
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "${DS_GRAFANADASHBOARDV0.1}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "See Details",
+              "url": "http://localhost:3000/d/baefb5d0-3068-4c65-95f8-64cc7f5fcd8b/radio-link-inventory-detail?orgId=1&${region:queryparam}﻿﻿&﻿﻿${mnemonic:queryparam}﻿﻿&var-linkDistance=﻿﻿${__field.name}﻿﻿&var-inLag=All&var-band=All&var-maxCapacity=All&var-minCapacity=All\n\n"
+            }
+          ],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 15,
+      "options": {
+        "displayMode": "lcd",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "orientation": "vertical",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "text": {
+          "titleSize": 12
+        },
+        "valueMode": "color"
+      },
+      "pluginVersion": "10.1.5",
+      "targets": [
+        {
+          "dataset": "cards_inventory",
+          "datasource": {
+            "type": "mysql",
+            "uid": "${DS_GRAFANADASHBOARDV0.1}"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n    COUNT(CASE WHEN `linkDistance(km)` BETWEEN 0 and 1  THEN 1 END) AS `0 - 0.99`,\r\n    COUNT(CASE WHEN `linkDistance(km)` BETWEEN 1 and 5  THEN 1 END) AS `1 - 4.99`,\r\n    COUNT(CASE WHEN `linkDistance(km)` BETWEEN 5 and 10  THEN 1 END) AS `5 - 9.99`,\r\n    COUNT(CASE WHEN `linkDistance(km)` BETWEEN 10 and 20  THEN 1 END) AS `10 - 19.99`,\r\n    COUNT(CASE WHEN `linkDistance(km)` BETWEEN 20 and 30  THEN 1 END) AS `20 - 29.99`,\r\n    COUNT(CASE WHEN `linkDistance(km)` BETWEEN 30 and 40  THEN 1 END) AS `30 - 39.99`,\r\n    COUNT(CASE WHEN `linkDistance(km)` BETWEEN 40 and 50  THEN 1 END) AS `40 - 49.99`,\r\n    COUNT(CASE WHEN `linkDistance(km)` BETWEEN 50 and 100  THEN 1 END) AS `50 - 99.99`,\r\n    COUNT(CASE WHEN `linkDistance(km)` BETWEEN 100 and 500  THEN 1 END) AS `100 - 499.99`\r\nFROM \r\n    grafana_dashboards.radio_link_inventory\r\nWHERE\r\n    region in ($region) AND mnemonic IN ($mnemonic) AND RxBand IN ('7','13','18','38','80');",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Radio Link Per LinkDistance (Km) ",
+      "transformations": [
+        {
+          "id": "groupingToMatrix",
+          "options": {
+            "columnField": "RxBand",
+            "emptyValue": "null",
+            "rowField": "Rx Frequency Count",
+            "valueField": "Rx Frequency Count"
+          }
+        }
+      ],
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "${DS_GRAFANADASHBOARDV0.1}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "See Details",
+              "url": "http://localhost:3000/d/baefb5d0-3068-4c65-95f8-64cc7f5fcd8b/radio-link-inventory-detail?orgId=1&${region:queryparam}﻿﻿﻿&﻿﻿﻿${mnemonic:queryparam}﻿﻿﻿&var-linkDistance=All&var-inLag=All&var-band=All&var-maxCapacity=${__field.name}&var-minCapacity=All\n"
+            }
+          ],
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 70
+              },
+              {
+                "color": "yellow",
+                "value": 85
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 24,
+        "x": 0,
+        "y": 8
+      },
+      "id": 12,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "10.1.5",
+      "targets": [
+        {
+          "dataset": "cards_inventory",
+          "datasource": {
+            "type": "mysql",
+            "uid": "${DS_GRAFANADASHBOARDV0.1}"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n    COUNT(CASE WHEN `maxCapacity(Mbps)` BETWEEN 0 and 100  THEN 1 END) AS `0 - 99.99`,\r\n    COUNT(CASE WHEN `maxCapacity(Mbps)` BETWEEN 100 and 200  THEN 1 END) AS `100 - 199.99`,\r\n    COUNT(CASE WHEN `maxCapacity(Mbps)` BETWEEN 200 and 300  THEN 1 END) AS `200 - 299.99`,\r\n    COUNT(CASE WHEN `maxCapacity(Mbps)` BETWEEN 300 and 400  THEN 1 END) AS `300 - 399.99`,\r\n    COUNT(CASE WHEN `maxCapacity(Mbps)` BETWEEN 400 and 500  THEN 1 END) AS `400 - 499.99`,\r\n    COUNT(CASE WHEN `maxCapacity(Mbps)` BETWEEN 500 and 1000  THEN 1 END) AS `500 - 999.99`,\r\n    COUNT(CASE WHEN `maxCapacity(Mbps)` BETWEEN 1000 and 2000  THEN 1 END) AS `1000 - 1999.99`,\r\n    COUNT(CASE WHEN `maxCapacity(Mbps)` BETWEEN 2000 and 3000  THEN 1 END) AS `2000 - 2999.99`,\r\n    COUNT(CASE WHEN `maxCapacity(Mbps)` BETWEEN 3000 and 4000  THEN 1 END) AS `3000 - 3999.99`,\r\n    COUNT(CASE WHEN `maxCapacity(Mbps)` BETWEEN 4000 and 10000  THEN 1 END) AS `4000 - 9999.99`\r\nFROM \r\n    grafana_dashboards.radio_link_inventory\r\nWHERE\r\n    region in ($region) AND mnemonic IN ($mnemonic) AND RxBand IN ('7','13','18','38','80');",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Radio Link Per MaxCapacity (Mbps)",
+      "transformations": [
+        {
+          "id": "groupingToMatrix",
+          "options": {
+            "columnField": "RxBand",
+            "emptyValue": "null",
+            "rowField": "Rx Frequency Count",
+            "valueField": "Rx Frequency Count"
+          }
+        }
+      ],
+      "type": "gauge"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {},
+        "datasource": {
+          "type": "mysql",
+          "uid": "${DS_GRAFANADASHBOARDV0.1}"
+        },
+        "definition": "SELECT DISTINCT region\nFROM grafana_dashboards.radio_link_inventory;",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Select Region",
+        "multi": true,
+        "name": "region",
+        "options": [],
+        "query": "SELECT DISTINCT region\nFROM grafana_dashboards.radio_link_inventory;",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "allValue": "",
+        "current": {},
+        "datasource": {
+          "type": "mysql",
+          "uid": "${DS_GRAFANADASHBOARDV0.1}"
+        },
+        "definition": "SELECT DISTINCT mnemonic\nFROM grafana_dashboards.radio_link_inventory\nWHERE mnemonic != 'SFP' AND mnemonic IS NOT NULL AND mnemonic != 'N/A';",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Mnemonic",
+        "multi": true,
+        "name": "mnemonic",
+        "options": [],
+        "query": "SELECT DISTINCT mnemonic\nFROM grafana_dashboards.radio_link_inventory\nWHERE mnemonic != 'SFP' AND mnemonic IS NOT NULL AND mnemonic != 'N/A';",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": [
+            "1"
+          ],
+          "value": [
+            "1"
+          ]
+        },
+        "hide": 2,
+        "includeAll": true,
+        "label": "Link Distance",
+        "multi": true,
+        "name": "linkDistance",
+        "options": [
+          {
+            "selected": true,
+            "text": "All",
+            "value": "$__all"
+          },
+          {
+            "selected": false,
+            "text": "0 - 1",
+            "value": "0 AND 1"
+          },
+          {
+            "selected": false,
+            "text": "2 - 5",
+            "value": "2 AND 5"
+          },
+          {
+            "selected": false,
+            "text": "6 - 10",
+            "value": "6 AND 10"
+          },
+          {
+            "selected": false,
+            "text": "11 - 20",
+            "value": "11 AND 20"
+          },
+          {
+            "selected": false,
+            "text": "21 - 30",
+            "value": "21 AND 30"
+          },
+          {
+            "selected": false,
+            "text": "31 - 40",
+            "value": "31 AND 40"
+          },
+          {
+            "selected": false,
+            "text": "41 - 50",
+            "value": "41 AND 50"
+          },
+          {
+            "selected": false,
+            "text": "51 - 100",
+            "value": "51 AND 100"
+          },
+          {
+            "selected": false,
+            "text": "101 - 500",
+            "value": "101 AND 500"
+          },
+          {
+            "selected": false,
+            "text": "All",
+            "value": "0 AND 500"
+          }
+        ],
+        "query": "0 - 1 : 0 AND 1, 2 - 5 : 2 AND 5, 6 - 10 : 6 AND 10, 11 - 20 : 11 AND 20, 21 - 30 : 21 AND 30, 31 - 40 : 31 AND 40, 41 - 50 : 41 AND 50, 51 - 100 : 51 AND 100, 101 - 500 : 101 AND 500,  All : 0 AND 500",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "current": {},
+        "datasource": {
+          "type": "mysql",
+          "uid": "${DS_GRAFANADASHBOARDV0.1}"
+        },
+        "definition": "SELECT DISTINCT inLag\nFROM grafana_dashboards.radio_link_inventory;",
+        "hide": 2,
+        "includeAll": true,
+        "label": "In LAG",
+        "multi": true,
+        "name": "inLag",
+        "options": [],
+        "query": "SELECT DISTINCT inLag\nFROM grafana_dashboards.radio_link_inventory;",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "0 - 100"
+          ],
+          "value": [
+            "0 AND 100"
+          ]
+        },
+        "hide": 2,
+        "includeAll": true,
+        "label": "Max Capacity(Mbps)",
+        "multi": true,
+        "name": "maxCapacity",
+        "options": [
+          {
+            "selected": false,
+            "text": "All",
+            "value": "$__all"
+          },
+          {
+            "selected": true,
+            "text": "0 - 100",
+            "value": "0 AND 100"
+          },
+          {
+            "selected": false,
+            "text": "101 - 200",
+            "value": "101 AND 200"
+          },
+          {
+            "selected": false,
+            "text": "201 - 300",
+            "value": "201 AND 300"
+          },
+          {
+            "selected": false,
+            "text": "301 - 400",
+            "value": "301 AND 400"
+          },
+          {
+            "selected": false,
+            "text": "401 - 500",
+            "value": "401 AND 500"
+          },
+          {
+            "selected": false,
+            "text": "501 - 1000",
+            "value": "501 AND 1000"
+          },
+          {
+            "selected": false,
+            "text": "1001 - 2000",
+            "value": "1001 AND 2000"
+          },
+          {
+            "selected": false,
+            "text": "2001 - 3000",
+            "value": "3001 AND 4000"
+          },
+          {
+            "selected": false,
+            "text": "4001 - 5000",
+            "value": "4001 - 5000"
+          },
+          {
+            "selected": false,
+            "text": "All",
+            "value": "0 AND 5000"
+          }
+        ],
+        "query": "0 - 100 : 0 AND 100, 101 - 200 : 101 AND 200, 201 - 300 : 201 AND 300, 301 - 400 : 301 AND 400, 401 - 500 : 401 AND 500, 501 - 1000 : 501 AND 1000, 1001 - 2000 : 1001 AND 2000, 2001 - 3000 : 3001 AND 4000, 4001 - 5000, All : 0 AND 5000",
+        "skipUrlSync": false,
+        "type": "custom"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Radio Link Inventory",
+  "uid": "d7c2f7ab-2c70-44e7-9bfa-47c8977389ac",
+  "version": 14,
+  "weekStart": ""
+}

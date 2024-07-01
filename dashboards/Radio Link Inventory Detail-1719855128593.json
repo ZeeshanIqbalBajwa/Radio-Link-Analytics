@@ -1,0 +1,666 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_GRAFANADASHBOARDV0.1",
+      "label": "GrafanaDashboardv0.1",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "mysql",
+      "pluginName": "MySQL"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "10.1.5"
+    },
+    {
+      "type": "datasource",
+      "id": "mysql",
+      "name": "MySQL",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "table",
+      "name": "Table",
+      "version": ""
+    }
+  ],
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "${DS_GRAFANADASHBOARDV0.1}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#d9d94e",
+            "mode": "palette-classic-by-name"
+          },
+          "custom": {
+            "align": "center",
+            "cellOptions": {
+              "type": "color-text"
+            },
+            "filterable": true,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Radio Link"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#ff641a",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Ne ID"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "light-purple",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Tx Freq (GHz)"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "lcd",
+                  "type": "gauge",
+                  "valueDisplayMode": "text"
+                }
+              },
+              {
+                "id": "custom.width",
+                "value": 183
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Tx Band (GHz)"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "rotghz"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Rx Freq (GHz)"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "lcd",
+                  "type": "gauge",
+                  "valueDisplayMode": "text"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Max Capacity (Mbps)"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "MBs"
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "lcd",
+                  "type": "gauge",
+                  "valueDisplayMode": "text"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Min Capacity (Mbps)"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "MBs"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Rx Band (GHz)"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "rotghz"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "linkDistance(km)"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "lengthkm"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 20,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 10,
+      "options": {
+        "cellHeight": "md",
+        "footer": {
+          "countRows": false,
+          "enablePagination": true,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "10.1.5",
+      "targets": [
+        {
+          "dataset": "cards_inventory",
+          "datasource": {
+            "type": "mysql",
+            "uid": "${DS_GRAFANADASHBOARDV0.1}"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \r\n    radioLink,\r\n    neId,\r\n    neName,\r\n    `linkDistance(km)`,\r\n    mnemonic,\r\n    `TxFrequency(Ghz)`,\r\n    TxBand,\r\n    `RxFrequency(Ghz)`,\r\n    RxBand,\r\n    `maxCapacity(Mbps)`,\r\n    `minCapacity(Mbps)`,\r\n    `inLag`\r\nFROM \r\n    grafana_dashboards.radio_link_inventory\r\nWHERE\r\n    region IN ($region) AND \r\n    mnemonic IN ($mnemonic) AND \r\n    RxBand IN ($band) AND\r\n    `linkDistance(km)` BETWEEN $linkDistance AND \r\n    `maxCapacity(Mbps)` BETWEEN $maxCapacity AND\r\n    `minCapacity(Mbps)` BETWEEN $minCapacity;\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Detail (Region: $region, Mnemonic: $mnemonic)",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {},
+            "renameByName": {
+              "RxBand": "Rx Band (GHz)",
+              "RxFrequency(Ghz)": "Rx Freq (GHz)",
+              "TxBand": "Tx Band (GHz)",
+              "TxFrequency(Ghz)": "Tx Freq (GHz)",
+              "administrativeState": "Admin State",
+              "description": "Description",
+              "displayedName": "Port",
+              "maxCapacity(Mbps)": "Max Capacity (Mbps)",
+              "minCapacity(Mbps)": "Min Capacity (Mbps)",
+              "mnemonic": "Mnemonic",
+              "neId": "Ne ID",
+              "neName": "Ne Name",
+              "operationalState": "Oper State",
+              "portMode": "Mode",
+              "portType": "Type",
+              "portUsed": "Usage",
+              "radioLink": "Radio Link",
+              "siteId": "Site Id",
+              "siteName": "Site Name"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {},
+        "datasource": {
+          "type": "mysql",
+          "uid": "${DS_GRAFANADASHBOARDV0.1}"
+        },
+        "definition": "SELECT DISTINCT region\nFROM grafana_dashboards.radio_link_inventory;",
+        "hide": 2,
+        "includeAll": true,
+        "label": "Select Region",
+        "multi": true,
+        "name": "region",
+        "options": [],
+        "query": "SELECT DISTINCT region\nFROM grafana_dashboards.radio_link_inventory;",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {},
+        "datasource": {
+          "type": "mysql",
+          "uid": "${DS_GRAFANADASHBOARDV0.1}"
+        },
+        "definition": "SELECT DISTINCT mnemonic\nFROM grafana_dashboards.radio_link_inventory\nWHERE mnemonic != 'SFP' OR mnemonic ='';\n",
+        "hide": 2,
+        "includeAll": true,
+        "label": "Mnemonic",
+        "multi": true,
+        "name": "mnemonic",
+        "options": [],
+        "query": "SELECT DISTINCT mnemonic\nFROM grafana_dashboards.radio_link_inventory\nWHERE mnemonic != 'SFP' OR mnemonic ='';\n",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "38",
+          "value": "38"
+        },
+        "hide": 2,
+        "includeAll": true,
+        "label": "Band",
+        "multi": false,
+        "name": "band",
+        "options": [
+          {
+            "selected": false,
+            "text": "All",
+            "value": "$__all"
+          },
+          {
+            "selected": false,
+            "text": "7",
+            "value": "7"
+          },
+          {
+            "selected": false,
+            "text": "13",
+            "value": "13"
+          },
+          {
+            "selected": false,
+            "text": "18",
+            "value": "18"
+          },
+          {
+            "selected": true,
+            "text": "38",
+            "value": "38"
+          },
+          {
+            "selected": false,
+            "text": "80",
+            "value": "80"
+          }
+        ],
+        "query": "7,13,18,38,80",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "0 AND 5000"
+        },
+        "hide": 2,
+        "includeAll": false,
+        "label": "Link Distance <",
+        "multi": false,
+        "name": "linkDistance",
+        "options": [
+          {
+            "selected": false,
+            "text": "0 - 0.99",
+            "value": "0 AND 1"
+          },
+          {
+            "selected": false,
+            "text": "1 - 4.99",
+            "value": "1 AND 5"
+          },
+          {
+            "selected": false,
+            "text": "5 - 9.99",
+            "value": "5 AND 10"
+          },
+          {
+            "selected": false,
+            "text": "10 - 19.99",
+            "value": "10 AND 20"
+          },
+          {
+            "selected": false,
+            "text": "20 - 29.99",
+            "value": "20 AND 30"
+          },
+          {
+            "selected": false,
+            "text": "30 - 39.99",
+            "value": "30 AND 40"
+          },
+          {
+            "selected": false,
+            "text": "40 - 49.99",
+            "value": "40 AND 50"
+          },
+          {
+            "selected": false,
+            "text": "50 - 99.99",
+            "value": "50 AND 100"
+          },
+          {
+            "selected": false,
+            "text": "100 - 499.99",
+            "value": "100 AND 500"
+          },
+          {
+            "selected": true,
+            "text": "All",
+            "value": "0 AND 5000"
+          }
+        ],
+        "query": "0 - 0.99 : 0 AND 1, 1 - 4.99 : 1 AND 5, 5 - 9.99 : 5 AND 10, 10 - 19.99 : 10 AND 20, 20 - 29.99 : 20 AND 30, 30 - 39.99 : 30 AND 40, 40 - 49.99 : 40 AND 50 , 50 - 99.99 : 50 AND 100, 100 - 499.99 : 100 AND 500,  All :  0 AND 5000",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "current": {},
+        "datasource": {
+          "type": "mysql",
+          "uid": "${DS_GRAFANADASHBOARDV0.1}"
+        },
+        "definition": "SELECT DISTINCT inLag\nFROM grafana_dashboards.radio_link_inventory;",
+        "hide": 2,
+        "includeAll": true,
+        "label": "In LAG",
+        "multi": false,
+        "name": "inLag",
+        "options": [],
+        "query": "SELECT DISTINCT inLag\nFROM grafana_dashboards.radio_link_inventory;",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "0 AND 10000"
+        },
+        "hide": 2,
+        "includeAll": false,
+        "label": "Max Capacity(Mbps)",
+        "multi": false,
+        "name": "maxCapacity",
+        "options": [
+          {
+            "selected": false,
+            "text": "0 - 99.99",
+            "value": "0 AND 100"
+          },
+          {
+            "selected": false,
+            "text": "100 - 199.99",
+            "value": "100 AND 200"
+          },
+          {
+            "selected": false,
+            "text": "200 - 299.99",
+            "value": "200 AND 300"
+          },
+          {
+            "selected": false,
+            "text": "300 - 399.99",
+            "value": "300 AND 400"
+          },
+          {
+            "selected": false,
+            "text": "400 - 499.99",
+            "value": "400 AND 500"
+          },
+          {
+            "selected": false,
+            "text": "500 - 999.99",
+            "value": "500 AND 1000"
+          },
+          {
+            "selected": false,
+            "text": "1000 - 1999.99",
+            "value": "1000 AND 2000"
+          },
+          {
+            "selected": false,
+            "text": "2000 - 2999.99",
+            "value": "2000 AND 3000"
+          },
+          {
+            "selected": false,
+            "text": "3000 - 3999.99",
+            "value": "3000 AND 4000"
+          },
+          {
+            "selected": false,
+            "text": "4000 - 9999.99",
+            "value": "4000 AND 10000"
+          },
+          {
+            "selected": true,
+            "text": "All",
+            "value": "0 AND 10000"
+          }
+        ],
+        "query": "0 - 99.99 : 0 AND 100, 100 - 199.99 : 100 AND 200, 200 - 299.99 : 200 AND 300, 300 - 399.99 : 300 AND 400, 400 - 499.99 : 400 AND 500, 500 - 999.99 : 500 AND 1000, 1000 - 1999.99 : 1000 AND 2000, 2000 - 2999.99 : 2000 AND 3000, 3000 - 3999.99 :  3000 AND 4000, 4000 - 9999.99 : 4000 AND 10000, All : 0 AND 10000",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "0 AND 10000"
+        },
+        "hide": 2,
+        "includeAll": false,
+        "label": "Min Capacity(Mbps)",
+        "multi": false,
+        "name": "minCapacity",
+        "options": [
+          {
+            "selected": false,
+            "text": "0 - 99.99",
+            "value": "0 AND 100"
+          },
+          {
+            "selected": false,
+            "text": "100 - 199.99",
+            "value": "100 AND 200"
+          },
+          {
+            "selected": false,
+            "text": "200 - 299.99",
+            "value": "200 AND 300"
+          },
+          {
+            "selected": false,
+            "text": "300 - 399.99",
+            "value": "300 AND 400"
+          },
+          {
+            "selected": false,
+            "text": "400 - 499.99",
+            "value": "400 AND 500"
+          },
+          {
+            "selected": false,
+            "text": "500 - 999.99",
+            "value": "500 AND 1000"
+          },
+          {
+            "selected": false,
+            "text": "1000 - 1999.99",
+            "value": "1000 AND 2000"
+          },
+          {
+            "selected": false,
+            "text": "2000 - 2999.99",
+            "value": "2000 AND 3000"
+          },
+          {
+            "selected": false,
+            "text": "3000 - 3999.99",
+            "value": "3000 AND 4000"
+          },
+          {
+            "selected": false,
+            "text": "4000 - 9999.99",
+            "value": "4000 AND 10000"
+          },
+          {
+            "selected": true,
+            "text": "All",
+            "value": "0 AND 10000"
+          }
+        ],
+        "query": "0 - 99.99 : 0 AND 100, 100 - 199.99 : 100 AND 200, 200 - 299.99 : 200 AND 300, 300 - 399.99 : 300 AND 400, 400 - 499.99 : 400 AND 500, 500 - 999.99 : 500 AND 1000, 1000 - 1999.99 : 1000 AND 2000, 2000 - 2999.99 : 2000 AND 3000, 3000 - 3999.99 :  3000 AND 4000, 4000 - 9999.99 : 4000 AND 10000, All : 0 AND 10000",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Radio Link Inventory Detail",
+  "uid": "baefb5d0-3068-4c65-95f8-64cc7f5fcd8b",
+  "version": 23,
+  "weekStart": ""
+}

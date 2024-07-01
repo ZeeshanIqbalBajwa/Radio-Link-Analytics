@@ -1,0 +1,71 @@
+INFO:29-Mar-24 06:21:27 - Calling function: main
+INFO:29-Mar-24 06:21:27 - Calling function: read_fields_from_ini
+INFO:29-Mar-24 06:21:27 - Calling function: establish_connection
+INFO:29-Mar-24 06:21:28 - Connected to DB.
+INFO:29-Mar-24 06:21:28 - Calling function: create_table
+INFO:29-Mar-24 06:21:28 - Database table 'radio_link_inventory' has been created
+INFO:29-Mar-24 06:21:28 - Calling function: load_ne_coords
+INFO:01-Apr-24 06:32:06 - Calling function: main
+INFO:01-Apr-24 06:32:06 - Calling function: read_fields_from_ini
+INFO:01-Apr-24 06:32:06 - Calling function: establish_connection
+INFO:01-Apr-24 06:32:06 - Connected to DB.
+INFO:01-Apr-24 06:32:06 - Calling function: create_table
+INFO:01-Apr-24 06:32:06 - Database table 'radio_link_inventory' has been created
+INFO:01-Apr-24 06:32:06 - Calling function: load_radio_link_values
+INFO:02-Apr-24 05:51:49 - Calling function: main
+INFO:02-Apr-24 05:51:49 - Calling function: read_fields_from_ini
+INFO:02-Apr-24 05:51:49 - Calling function: establish_connection
+INFO:02-Apr-24 05:51:49 - Connected to DB.
+INFO:02-Apr-24 05:51:49 - Calling function: create_table
+INFO:02-Apr-24 05:51:49 - Database table 'radio_link_inventory' has been created
+INFO:02-Apr-24 05:51:49 - Calling function: load_radio_link_values
+ERROR:02-Apr-24 05:51:51 - An error occurred during data processing: 'siteName'
+INFO:02-Apr-24 05:56:12 - Calling function: main
+INFO:02-Apr-24 05:56:12 - Calling function: read_fields_from_ini
+INFO:02-Apr-24 05:56:12 - Calling function: establish_connection
+INFO:02-Apr-24 05:56:12 - Connected to DB.
+INFO:02-Apr-24 05:56:12 - Calling function: create_table
+INFO:02-Apr-24 05:56:13 - Database table 'radio_link_inventory' has been created
+INFO:02-Apr-24 05:56:13 - Calling function: load_radio_link_values
+INFO:02-Apr-24 05:57:30 - Calling function: main
+INFO:02-Apr-24 05:57:30 - Calling function: read_fields_from_ini
+INFO:02-Apr-24 05:57:30 - Calling function: establish_connection
+INFO:02-Apr-24 05:57:30 - Connected to DB.
+INFO:02-Apr-24 05:57:30 - Calling function: create_table
+INFO:02-Apr-24 05:57:30 - Database table 'radio_link_inventory' has been created
+INFO:02-Apr-24 05:57:30 - Calling function: load_radio_link_values
+INFO:03-Apr-24 00:43:07 - Calling function: main
+INFO:03-Apr-24 00:43:07 - Calling function: read_fields_from_ini
+INFO:03-Apr-24 00:43:07 - Calling function: establish_connection
+INFO:03-Apr-24 00:43:07 - Connected to DB.
+INFO:03-Apr-24 00:43:07 - Calling function: create_table
+INFO:03-Apr-24 00:43:07 - Database table 'radio_link_inventory' has been created
+INFO:03-Apr-24 00:43:07 - Calling function: load_radio_link_values
+INFO:03-Apr-24 00:44:54 - Calling function: main
+INFO:03-Apr-24 00:44:54 - Calling function: read_fields_from_ini
+INFO:03-Apr-24 00:44:54 - Calling function: establish_connection
+INFO:03-Apr-24 00:44:54 - Connected to DB.
+INFO:03-Apr-24 00:44:54 - Calling function: create_table
+INFO:03-Apr-24 00:44:54 - Database table 'radio_link_inventory' has been created
+INFO:03-Apr-24 00:44:54 - Calling function: load_radio_link_values
+INFO:04-Jun-24 16:10:46 - Calling function: main
+INFO:04-Jun-24 16:10:46 - Calling function: read_fields_from_ini
+INFO:04-Jun-24 16:10:46 - Calling function: establish_connection
+INFO:04-Jun-24 16:10:46 - Connected to DB.
+INFO:04-Jun-24 16:10:46 - Calling function: create_table
+INFO:04-Jun-24 16:10:46 - Database table 'radio_link_inventory' has been created
+INFO:04-Jun-24 16:10:46 - Calling function: load_radio_link_values
+INFO:04-Jun-24 16:13:47 - Calling function: main
+INFO:04-Jun-24 16:13:47 - Calling function: read_fields_from_ini
+INFO:04-Jun-24 16:13:47 - Calling function: establish_connection
+INFO:04-Jun-24 16:13:47 - Connected to DB.
+INFO:04-Jun-24 16:13:47 - Calling function: create_table
+INFO:04-Jun-24 16:13:47 - Database table 'radio_link_inventory' has been created
+INFO:04-Jun-24 16:13:47 - Calling function: load_radio_link_values
+INFO:06-Jun-24 23:00:23 - Calling function: main
+INFO:06-Jun-24 23:00:23 - Calling function: read_fields_from_ini
+INFO:06-Jun-24 23:00:23 - Calling function: establish_connection
+INFO:06-Jun-24 23:00:23 - Connected to DB.
+INFO:06-Jun-24 23:00:23 - Calling function: create_table
+INFO:06-Jun-24 23:00:23 - Database table 'radio_link_inventory' has been created
+INFO:06-Jun-24 23:00:23 - Calling function: load_radio_link_values
